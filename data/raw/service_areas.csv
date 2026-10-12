@@ -1,0 +1,22 @@
+highway,service_area,milepost,county,direction
+Turnpike,Clara Barton,5.4,Salem,NB
+Turnpike,John Fenwick,5.4,Salem,SB
+Turnpike,Walt Whitman,30.2,Camden,SB
+Turnpike,James Fenimore Cooper,39.3,Burlington,NB
+Turnpike,Richard Stockton,58.8,Mercer,SB
+Turnpike,Woodrow Wilson,58.8,Mercer,NB
+Turnpike,Molly Pitcher,71.7,Middlesex,SB
+Turnpike,Joyce Kilmer,78.7,Middlesex,NB
+Turnpike,Thomas Edison,92.9,Middlesex,SB
+Turnpike,Grover Cleveland,92.9,Middlesex,NB
+Turnpike,Alexander Hamilton,111.6,Hudson,SB
+Turnpike,Vince Lombardi,116.0,Bergen,SB/NB
+Parkway,Ocean View,18.3,Cape May,SB/NB
+Parkway,Atlantic City,41.4,Atlantic,SB/NB
+Parkway,Forked River,96.0,Ocean,SB/NB
+Parkway,Monmouth,100.0,Monmouth,SB/NB
+Parkway,Cheesequake,124.5,Middlesex,SB/NB
+Parkway,Vauxhall,142.0,Union,NB
+Parkway,Brookdale South,153.3,Essex,SB
+Parkway,Brookdale North,153.3,Essex,NB
+Parkway,Montvale,172.0,Bergen,SB/NB
