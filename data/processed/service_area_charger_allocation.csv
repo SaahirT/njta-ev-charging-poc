@@ -1,0 +1,22 @@
+highway,service_area,milepost,county,direction,County,ev_count_2025,max_aadt,corridor_demand_index,target_chargers
+Parkway,Montvale,172.0,Bergen,SB/NB,Bergen,40397,163264,6595.38,66
+Turnpike,Vince Lombardi,116.0,Bergen,SB/NB,Bergen,40397,163264,6595.38,66
+Turnpike,Molly Pitcher,71.7,Middlesex,SB,Middlesex,32347,126941,4106.16,41
+Turnpike,Joyce Kilmer,78.7,Middlesex,NB,Middlesex,32347,126941,4106.16,41
+Turnpike,Thomas Edison,92.9,Middlesex,SB,Middlesex,32347,126941,4106.16,41
+Turnpike,Grover Cleveland,92.9,Middlesex,NB,Middlesex,32347,126941,4106.16,41
+Parkway,Cheesequake,124.5,Middlesex,SB/NB,Middlesex,32347,126941,4106.16,41
+Parkway,Brookdale North,153.3,Essex,NB,Essex,20882,117939,2462.8,25
+Parkway,Brookdale South,153.3,Essex,SB,Essex,20882,117939,2462.8,25
+Turnpike,Walt Whitman,30.2,Camden,SB,Camden,10844,140749,1526.28,15
+Turnpike,James Fenimore Cooper,39.3,Burlington,NB,Burlington,11078,123708,1370.44,14
+Parkway,Vauxhall,142.0,Union,NB,Union,13683,100424,1374.1,14
+Parkway,Monmouth,100.0,Monmouth,SB/NB,Monmouth,23271,54657,1271.92,13
+Turnpike,Richard Stockton,58.8,Mercer,SB,Mercer,14039,93943,1318.87,13
+Turnpike,Woodrow Wilson,58.8,Mercer,NB,Mercer,14039,93943,1318.87,13
+Turnpike,Alexander Hamilton,111.6,Hudson,SB,Hudson,12824,76944,986.73,10
+Parkway,Forked River,96.0,Ocean,SB/NB,Ocean,14038,55380,777.42,8
+Parkway,Atlantic City,41.4,Atlantic,SB/NB,Atlantic,4078,46415,189.28,4
+Parkway,Ocean View,18.3,Cape May,SB/NB,Cape May,1425,24825,35.38,4
+Turnpike,John Fenwick,5.4,Salem,SB,Salem,620,40098,24.86,4
+Turnpike,Clara Barton,5.4,Salem,NB,Salem,620,40098,24.86,4
