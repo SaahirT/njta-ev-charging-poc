@@ -1,72 +1,58 @@
 # NJTA EV Highway Charging Analytics (Proof of Concept)
 
-## Executive Summary
-This project delivers a data-driven infrastructure allocation model for the **New Jersey Turnpike Authority (NJTA)** to prioritize DC Fast-Charger deployment across service areas on the New Jersey Turnpike and Garden State Parkway. 
+## What This Project Is About
+The New Jersey Turnpike Authority (NJTA) manages the New Jersey Turnpike and the Garden State Parkway—two of the busiest highways in the state. The goal of this project is to use public data to build a practical, data-driven model that helps NJTA figure out where they should put electric vehicle chargers.
 
-By correlating regional EV growth with peak highway traffic bottlenecks, the model translates county-level demand into site-specific charger targets for **21 highway service plazas**, modeling a total network requirement of **503 fast chargers**.
+As a Tesla owner, I’m pretty passionate about EVs and how they're changing transportation. Because of that, I wanted to build a project specifically focused on helping the NJTA tap into the EV boom.
 
----
+### The Business Case
+Right now, NJTA tracks traffic and vehicle types using All-Electronic Tolling (AET) gantries. Through things like E-ZPass registration records (like the Green Pass program) and license plate readers (ALPR), they can easily spot which cars are electric. 
 
-## Project Background & Motivation
+Since EV ownership is growing fast, NJTA's data is going to show more and more electric cars passing through. Because NJTA also owns all the rest stops (Service Areas) along the Turnpike and Parkway, they have a huge opportunity: they can install fast-charging stations at these rest stops where EV traffic is heaviest.
 
-The New Jersey Turnpike Authority (NJTA) is in charge of the New Jersey Turnpike and the Garden State Parkway—two of the busiest highways in the state. The goal of this project is to analyze data and come to a conclusion that can help NJTA form a data-driven business decision.
-
-As an owner of a Tesla, I have come to be very passionate about electric vehicles and the way they are evolving the transportation industry. Because of this, I wanted to create a project for NJTA that focuses on electric vehicles.
-
-### The Business Opportunity
-At toll stations, NJTA collects a lot of data across their All-Electronic Tolling (AET) gantries. Through E-ZPass registration records (like the Green Pass program) and Automated License Plate Readers (ALPR), they can capture vehicle type and fuel profile data—which can be used to identify a vehicle as electric. With this data, NJTA can assess the population of electric vehicles that use the Turnpike and Parkway. Seeing as how the rate of EV ownership is rapidly increasing, it is likely that the data would tell NJTA that they are supporting more and more electric vehicles.
-
-By knowing this, NJTA can make a data-driven business decision. On top of owning the Turnpike and Parkway, NJTA also owns the rest stops (Service Areas) along these highways. Because EV usage is increasing for NJTA, they can invest in high-speed DC Fast-Charging stations at these rest stops—especially those located along corridors with the highest EV traffic volume.
-
-Supporting EV owners could lead to higher profits for NJTA. Additionally, it is worth noting that charging an electric vehicle takes 20–30 minutes—way longer than a quick 5-minute gas refill. Naturally, EV owners get out of their cars and interact with the stores at the rest stops. NJTA can leverage this foot-traffic and dwell-time data to negotiate higher lease rates with rest stop vendors—further increasing non-toll profits.
+Here’s why it's a win-win for NJTA:
+* **Non-Toll Revenue:** Charging an EV takes 20 to 30 minutes (way longer than a quick 5-minute gas stop). That means drivers will actually get out of their cars and hang out at the rest stop stores. 
+* **Better Vendor Deals:** NJTA can use that extra foot traffic and longer dwell time to negotiate higher lease rates with the rest stop shops and restaurants, boosting their profits outside of toll money.
 
 ---
 
-## Proof of Concept (POC) Scope & Data Sources
+## The Catch & How I Built It
+Unfortunately, I don't have access to live E-ZPass or toll data because of privacy laws (DPPA). So for this proof of concept (POC), I used related public datasets and made some estimates to fill in the blanks.
 
-Unfortunately, I do not have access to live AET/E-ZPass or ALPR data due to Driver's Privacy Protection Act (DPPA) laws. For the purposes of this project, I utilized related public datasets to construct a proxy demand model. This project serves as a **Proof of Concept (POC)** to demonstrate how NJTA can execute this allocation framework using internal toll data.
-
-The project addresses three core questions:
+To make it work, I broke the problem down into three main questions:
 1. **Has EV usage increased in New Jersey?**
 2. **Which highway corridors handle the highest estimated EV traffic?**
-3. **Which highway service areas correspond to these high-demand corridors, and how many chargers should be built at each?**
+3. **Which highway service areas correspond to these busy spots, and how many chargers should we put at each?**
 
-### Datasets Used
-* **NJDEP Historic AFV Reports (Dec 2019, Dec 2022, Dec 2025):** Public EV registration counts by county and ZIP code ([NJDEP Drive Green](https://dep.nj.gov/drivegreen/nj-ev-data/)). Used to quantify statewide EV growth.
-* **NJDOT Traffic Count 2025 Dataset with AADTs:** Highway traffic volume measurements across state roadways ([NJDOT Traffic Data](https://dot.nj.gov/transportation/refdata/roadway/traffic.shtm)). Used to identify peak corridor bottlenecks (`max_aadt`).
-* **NJTA Service Area Directory:** Compiled list of 21 rest stops across the Turnpike and Parkway, including highway name, milepost, county, and direction ([NJTA Service Areas](https://www.njta.gov/travel-resources/service-areas/)).
-
----
-
-## Analytical Methodology
-
-### 1. Corridor Demand Index (CDI)
-To determine highway demand, county-level EV registration counts were combined with peak highway traffic volumes recorded by NJDOT sensors in that county:
-
-$$\text{CDI} = \frac{\text{County 2025 EV Count} \times \text{Peak Highway AADT}}{1,000,000}$$
-
-Dividing by $1,000,000$ rescales multi-billion raw products into a clean, human-readable demand score while preserving exact relative demand ratios.
-
-### 2. Target Charger Allocation Formula
-To convert abstract CDI scores into actionable, site-specific parking lot charger counts, each service area was assigned a target allocation based on its county's CDI score:
-
-$$\text{Target Chargers} = \max\left(4, \text{round}\left(\frac{\text{CDI}}{100}\right)\right)$$
-
-* **Scaling Factor ($\div 100$):** Scales regional demand to realistic, site-level parking capacity (e.g., premier interstate hubs vs. regional stops).
-* **Baseline Floor ($\max(4, \dots)$):** Enforces a minimum baseline of 4 chargers per plaza to guarantee basic corridor connectivity across all highway stretches.
+### The Public Data Used
+* **NJDEP EV Reports (2019, 2022, 2025):** Public numbers on how many EVs are registered in each NJ county ([NJDEP Link](https://dep.nj.gov/drivegreen/nj-ev-data/)).
+* **NJDOT Traffic Counts (2025):** Daily traffic volume measurements across state roads ([NJDOT Link](https://dot.nj.gov/transportation/refdata/roadway/traffic.shtm)) to find peak bottleneck spots (`max_aadt`).
+* **NJTA Service Area Directory:** A list of the 21 rest stops along the Turnpike and Parkway with their locations and mileposts ([NJTA Link](https://www.njta.gov/travel-resources/service-areas/)).
 
 ---
 
-## Key Results & Infrastructure Allocation
+## How the Math Works
 
-* **Statewide Network Total:** **503 DC Fast-Charging Plugs** recommended across 21 highway service plazas (averaging ~24 chargers per plaza).
-* **Tier 1 Expansion Hubs:** **Montvale** (Parkway) and **Vince Lombardi** (Turnpike) lead the state with **66 target chargers each**, driven by Bergen County's peak EV adoption and George Washington Bridge corridor traffic.
-* **Middlesex Central Corridor:** Central transit plazas (**Molly Pitcher, Joyce Kilmer, Thomas Edison, Grover Cleveland, Cheesequake**) require **41 chargers each**.
+1. **Corridor Demand Index (CDI):** 
+   To figure out where the demand is highest, I multiplied each county's 2025 EV count by its peak highway traffic score, then divided by 1,000,000 just to keep the numbers easy to read:
+   $$\text{CDI} = \frac{\text{County EVs} \times \text{Peak Highway Traffic}}{1,000,000}$$
+
+2. **Target Charger Formula:**
+   To turn those raw demand scores into an actual number of parking lot chargers, I scaled the CDI down and set a safety minimum:
+   $$\text{Target Chargers} = \max\left(4, \text{round}\left(\frac{\text{CDI}}{100}\right)\right)$$
+   * Dividing by 100 scales the demand down to realistic rest-stop sizes.
+   * The $\max(4, \dots)$ ensures that even quieter, rural rest stops get at least 4 chargers so nobody gets stranded.
 
 ---
 
-## Project Structure & Jupyter Notebooks
+## The Results
+* **Total Network Need:** The model calls for **503 fast-charging plugs** spread across all 21 service plazas.
+* **Top Hubs:** **Montvale** (on the Parkway) and **Vince Lombardi** (on the Turnpike) need the most help—**66 chargers each**—because Bergen County has massive EV numbers and brutal commute traffic.
+* **Central Corridor:** Busy central spots like **Molly Pitcher, Joyce Kilmer, Thomas Edison, Grover Cleveland, and Cheesequake** all land at **41 chargers each**.
 
-* **`notebooks/01_ev_growth_analysis.ipynb`:** Assessed historic EV growth across New Jersey counties (2019–2025).
-* **`notebooks/02_traffic_demand_overlay.ipynb`:** Ingested NJDOT AADT traffic data, extracted peak bottleneck traffic (`max_aadt`), and calculated the Corridor Demand Index (CDI) per county.
-* **`notebooks/03_service_area_allocation.ipynb`:** Mapped service plazas (`service_areas.csv`) to county CDI scores, computed `target_chargers`, and exported final site allocations to `service_area_charger_allocation.csv`.
+---
+
+## Project Structure
+* **`notebooks/01_ev_growth_analysis.ipynb`:** Looked at how fast EVs grew across NJ counties from 2019 to 2025.
+* **`notebooks/02_traffic_demand_overlay.ipynb`:** Pulled in traffic data, found the busiest highway spots, and calculated the demand scores.
+* **`notebooks/03_service_area_allocation.ipynb`:** Matched those scores to actual rest stops, calculated the target charger counts, and saved the final CSV (`service_area_charger_allocation.csv`).
